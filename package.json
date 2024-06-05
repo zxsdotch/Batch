@@ -1,0 +1,33 @@
+{
+  "name": "d1-batch",
+  "version": "1.0.0",
+  "description": "Improve the way you batch operations with Cloudflare D1.",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zxsdotch/d1-batch.git"
+  },
+  "keywords": [
+    "sql",
+    "cloudflare",
+    "d1",
+    "cloudflare-workers",
+    "cloudflare-pages"
+  ],
+  "author": "Alok Menghrajani",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/zxsdotch/d1-batch/issues"
+  },
+  "homepage": "https://github.com/zxsdotch/d1-batch#readme",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240603.0",
+    "@miniflare/d1": "^2.14.2",
+    "better-sqlite3": "^8.0.1",
+    "typescript": "^5.4.5",
+    "vitest": "^1.5.3"
+  }
+}
