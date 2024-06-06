@@ -14,13 +14,21 @@ export class Batch<K extends PropertyKey> {
     this.done = false;
   }
 
-  reset() {
+  /**
+   * Resets the state of the class.
+   */
+  reset(): void {
     this.queryMap = new Map();
     this.resultsMap = new Map();
     this.done = false;
   }
 
-  enqueue(key: K, statement: D1PreparedStatement) {
+  /**
+   * Saves a D1PreparedStatement to be sent to the database when `query()` is called. To keep
+   * things simple, statements can only be enqueued prior to calling `query()`. `key` will be used
+   * to retrieve the result.
+   */
+  enqueue(key: K, statement: D1PreparedStatement): void {
     if (this.done) {
       throw new Error("enqueue() called after query()");
     }
@@ -30,11 +38,17 @@ export class Batch<K extends PropertyKey> {
     this.queryMap.set(key, statement);
   }
 
-  selectLastInsertRowId(key: K) {
+  /**
+   * Saves a statement which returns `LAST_INSERT_ROWID()`.
+   */
+  selectLastInsertRowId(key: K): void {
     this.enqueue(key, this.d1.prepare("SELECT LAST_INSERT_ROWID() AS id"));
   }
 
-  async query() {
+  /**
+   * Sends the saved statements to the database and saves the results.
+   */
+  async query(): Promise<void> {
     if (this.done) {
       throw new Error("query() called more than once");
     }
@@ -54,6 +68,9 @@ export class Batch<K extends PropertyKey> {
     }
   }
 
+  /**
+   * Returns the result for a given `key`.
+   */
   getResults<T>(key: K): T[] {
     if (!this.done) {
       throw new Error("getResults() called before query()")
@@ -66,6 +83,10 @@ export class Batch<K extends PropertyKey> {
     return (result as D1Result<T>).results;
   }
 
+  /**
+   * Returns the result for a given `key` converting the data into a key-value record. An empty
+   * {} record is returned if the database statement did not return a any results.
+   */
   getAsRecord<T>(key: K, mapper: (row: T) => PropertyKey): Record<PropertyKey, T> {
     if (!this.done) {
       throw new Error("map() called before query()")
@@ -84,6 +105,10 @@ export class Batch<K extends PropertyKey> {
     return r;
   }
 
+  /**
+   * Returns the first result for a given `key` or undefined if the
+   * database statement did not return any results.
+   */
   first<T>(key: K): T | undefined {
     if (!this.done) {
       throw new Error("one() called before query()")
