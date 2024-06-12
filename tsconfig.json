@@ -3,12 +3,9 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "NodeNext",
-    "lib": [
-      "esnext"
-    ],
-    "types": [
-      "@cloudflare/workers-types",
-    ],
+    "lib": ["esnext"],
+    "types": ["@cloudflare/workers-types", "@cloudflare/vitest-pool-workers"],
     "strict": true,
+    "skipLibCheck": true
   }
 }

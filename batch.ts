@@ -73,7 +73,7 @@ export class Batch<K extends PropertyKey> {
    */
   getResults<T>(key: K): T[] {
     if (!this.done) {
-      throw new Error("getResults() called before query()")
+      throw new Error("getResults() called before query()");
     }
 
     const result = this.resultsMap.get(key);
@@ -87,9 +87,12 @@ export class Batch<K extends PropertyKey> {
    * Returns the result for a given `key` converting the data into a key-value record. An empty
    * {} record is returned if the database statement did not return a any results.
    */
-  getAsRecord<T>(key: K, mapper: (row: T) => PropertyKey): Record<PropertyKey, T> {
+  getAsRecord<T>(
+    key: K,
+    mapper: (row: T) => PropertyKey,
+  ): Record<PropertyKey, T> {
     if (!this.done) {
-      throw new Error("map() called before query()")
+      throw new Error("map() called before query()");
     }
 
     const r = {} as any;
@@ -111,7 +114,7 @@ export class Batch<K extends PropertyKey> {
    */
   first<T>(key: K): T | undefined {
     if (!this.done) {
-      throw new Error("one() called before query()")
+      throw new Error("one() called before query()");
     }
 
     const result = this.resultsMap.get(key);

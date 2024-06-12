@@ -4,7 +4,9 @@
   "description": "Improve the way you batch operations with Cloudflare D1.",
   "main": "index.js",
   "scripts": {
-    "test": "vitest"
+    "pretty": "npx prettier . --write",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest --typecheck --run"
   },
   "repository": {
     "type": "git",
@@ -24,10 +26,12 @@
   },
   "homepage": "https://github.com/zxsdotch/d1-batch#readme",
   "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.4.4",
     "@cloudflare/workers-types": "^4.20240603.0",
-    "@miniflare/d1": "^2.14.2",
     "better-sqlite3": "^8.0.1",
+    "miniflare": "^3.20240605.0",
+    "prettier": "^3.3.2",
     "typescript": "^5.4.5",
-    "vitest": "^1.5.3"
+    "vitest": "1.5.0"
   }
 }

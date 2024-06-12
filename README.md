@@ -1,4 +1,5 @@
 # d1-batch
+
 Improve the way you batch operations with [Cloudflare D1](https://developers.cloudflare.com/d1/).
 
 The `Batch` class provides a way to assign keys to a batch of queries,
@@ -9,6 +10,7 @@ class.
 For example, the following piece of code is a simplified invitiation flow. A user row
 is created if needed and a message is recorded when provided. Using Cloudflare D1's
 built-in `batch()` function:
+
 ```javascript
 var _insertUserResult, newUserResult, _insertMessageResult;
 if (message) {
@@ -26,8 +28,9 @@ if (message) {
 const newUser = (newUserResult as D1Result<UsersRow>).results[0];
 ```
 
-The code is however cleaner if you the `Batch` class. The code is more readable,
+The code is however cleaner if you use the `Batch` class. The code is more readable,
 and easier to change over time:
+
 ```javascript
 import { Batch } from "d1-batch";
 
@@ -42,11 +45,13 @@ const newUser = b.first<UsersRow>("newUser")!;
 ```
 
 ## Installation
+
 ```bash
 npm install d1-batch
 ```
 
 ## Some additional context
+
 In general, it is preferrable to use a lightweight query builder or ORM to perform
 CRUD operations: it's quicker to implement and less brittle. However, while working on
 a latency sensitive Cloudflare Workers based project, we needed to carefuly control
